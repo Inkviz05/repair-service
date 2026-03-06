@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <h1>Создание заявки</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="{{ form.client_name.id_for_label }}">Клиент</label>
+      {{ form.client_name }}
+    </div>
+    <div>
+      <label for="{{ form.phone.id_for_label }}">Телефон</label>
+      {{ form.phone }}
+    </div>
+    <div>
+      <label for="{{ form.address.id_for_label }}">Адрес</label>
+      {{ form.address }}
+    </div>
+    <div>
+      <label for="{{ form.problem_text.id_for_label }}">Описание проблемы</label>
+      {{ form.problem_text }}
+    </div>
+    <div style="margin-top: 12px;">
+      <button type="submit">Создать заявку</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

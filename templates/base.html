@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repair Service</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f6f8fb; color: #1f2937; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+    .card { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    label { display: block; margin-bottom: 4px; font-size: 14px; }
+    input, textarea, select, button { padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+    button { cursor: pointer; background: #0f766e; color: #fff; border-color: #0f766e; }
+    button.danger { background: #b91c1c; border-color: #b91c1c; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #e5e7eb; padding: 10px; text-align: left; font-size: 14px; vertical-align: top; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; background: #e5e7eb; font-size: 12px; }
+    .messages { list-style: none; padding: 0; margin: 0 0 16px 0; }
+    .messages li { padding: 10px; border-radius: 6px; margin-bottom: 8px; }
+    .messages li.success { background: #dcfce7; }
+    .messages li.error { background: #fee2e2; }
+    .header-nav { display: flex; gap: 12px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-nav">
+      {% if user.is_authenticated %}
+        <a href="{% url 'home' %}">Главная</a>
+        <a href="{% url 'create_request' %}">Создать заявку</a>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit">Выйти ({{ user.username }})</button>
+        </form>
+      {% endif %}
+    </div>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
